@@ -12,7 +12,7 @@ class TableViewController: UITableViewController {
 
     var arrayOfArticles = [Article]()
     let beginOfArticlesURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=western+shirts"
-    let endOfArticlesURL = "&api-key=d4e97cffa4f24a59b5f637aecd91b440"
+    let endOfArticlesURL = "&sort=newest&api-key=d4e97cffa4f24a59b5f637aecd91b440"
     
     override func viewDidLoad() {
         super.viewDidLoad()
