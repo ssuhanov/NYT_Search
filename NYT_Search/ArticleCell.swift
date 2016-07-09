@@ -12,6 +12,10 @@ class ArticleCell: UITableViewCell {
     
     var article: Article?
 
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var imageImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,5 +26,16 @@ class ArticleCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    func configureCell() {
+        if let article = article {
+            nameLabel.text = article.name
+            dateLabel.text = article.date
+            imageImageView.image = nil
+            if let articleImage = article.image {
+                imageImageView.image = articleImage
+            }
+        }
+    }
+    
 }

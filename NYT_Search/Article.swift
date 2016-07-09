@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+let imageDomain = "https://static01.nyt.com/"
+
 class Article {
     var name: String
     var date: String
@@ -16,14 +18,21 @@ class Article {
     var image: UIImage?
     
     init(jsonDictionary: [String : AnyObject]) {
-        self.name = jsonDictionary["keyForName"] as! String
-        self.date = jsonDictionary["keyForDate"] as! String
-        self.link = jsonDictionary["keyForLink"] as! String
+        let jsonHeadline = jsonDictionary["headline"] as! [String : AnyObject]
+        self.name = jsonHeadline["main"] as! String
+        self.date = jsonDictionary["pub_date"] as! String
+        self.link = jsonDictionary["web_url"] as! String
         
-        guard let imageURL = NSURL(string: jsonDictionary["keyForImage"] as! String),
-            let imageData = NSData(contentsOfURL: imageURL) else {
-                return
+        
+        if let jsonMultimedia = jsonDictionary["multimedia"] as? [[String : AnyObject]] {
+            if jsonMultimedia.count > 0 {
+                guard let imageURLString = jsonMultimedia[0]["url"] as? String,
+                    let imageURL = NSURL(string: imageDomain + imageURLString),
+                    let imageData = NSData(contentsOfURL: imageURL) else {
+                        return
+                }
+                self.image = UIImage(data: imageData)
+            }
         }
-        self.image = UIImage(data: imageData)
     }
 }

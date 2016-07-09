@@ -15,14 +15,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="117" id="3kN-VO-mgq" customClass="ArticleCell" customModule="NYT_Search" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="117" id="3kN-VO-mgq" customClass="ArticleCell" customModule="NYT_Search" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="117"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3kN-VO-mgq" id="E1b-qz-dGw">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="116"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vhU-Ya-nbh">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vhU-Ya-nbh">
                                             <rect key="frame" x="8" y="8" width="100" height="100"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="FhM-8j-47h"/>
@@ -59,6 +59,11 @@
                                         <constraint firstItem="D0d-4Q-kX6" firstAttribute="top" secondItem="E1b-qz-dGw" secondAttribute="topMargin" id="sct-F9-x8b"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dateLabel" destination="rxi-4d-216" id="gUb-JV-gHh"/>
+                                    <outlet property="imageImageView" destination="vhU-Ya-nbh" id="pTO-QP-G1b"/>
+                                    <outlet property="nameLabel" destination="D0d-4Q-kX6" id="OAv-28-o3m"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
