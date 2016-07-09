@@ -13,6 +13,7 @@ class ArticleCell: UITableViewCell {
     var article: Article?
 
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var imageImageView: UIImageView!
     
@@ -30,6 +31,7 @@ class ArticleCell: UITableViewCell {
     func configureCell() {
         if let article = article {
             nameLabel.text = article.name
+            authorLabel.text = article.author
             dateLabel.text = article.date
             imageImageView.image = nil
             if let articleImage = article.image {

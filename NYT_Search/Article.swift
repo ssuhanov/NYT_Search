@@ -14,12 +14,18 @@ let imageDomain = "https://static01.nyt.com/"
 class Article {
     var name: String
     var date: String
+    var author: String?
     var link: String
     var image: UIImage?
     
     init(jsonDictionary: [String : AnyObject]) {
         let jsonHeadline = jsonDictionary["headline"] as! [String : AnyObject]
         self.name = jsonHeadline["main"] as! String
+        
+        if let jsonByLine = jsonDictionary["byline"] as? [String : AnyObject] {
+            self.author = jsonByLine["original"] as? String
+        }
+        
         self.date = jsonDictionary["pub_date"] as! String
         self.link = jsonDictionary["web_url"] as! String
         
