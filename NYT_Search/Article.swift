@@ -13,7 +13,7 @@ let imageDomain = "https://static01.nyt.com/"
 
 class Article {
     var name: String
-    var date: String
+    var date: String?
     var author: String?
     var link: String
     var image: UIImage?
@@ -26,7 +26,17 @@ class Article {
             self.author = jsonByLine["original"] as? String
         }
         
-        self.date = jsonDictionary["pub_date"] as! String
+        let jsonDate = jsonDictionary["pub_date"] as! String
+        let jsonDateArray = jsonDate.componentsSeparatedByString("T")
+        if let dateString = jsonDateArray.first {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            if let date = dateFormatter.dateFromString(dateString) {
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+                self.date = dateFormatter.stringFromDate(date)
+            }
+        }
+        
         self.link = jsonDictionary["web_url"] as! String
         
         
