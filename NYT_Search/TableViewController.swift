@@ -8,18 +8,48 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, UISearchBarDelegate {
 
     var arrayOfArticles = [Article]()
-    let beginOfArticlesURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=western+shirts"
+    let beginOfArticlesURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q="
     let endOfArticlesURL = "&sort=newest&api-key=d4e97cffa4f24a59b5f637aecd91b440"
     
+    var searchController: UISearchController!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Articles"
-        getArticles()
+        navigationItem.title = "NY Times"
+        
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.text = "New York"
+        searchController.searchBar.delegate = self
+        
+        tableView.tableHeaderView = searchController.searchBar
+        
+        getArticles("New York")
     }
-
+    
+    func stringForSearch(searchString: String) -> String {
+        var result = ""
+        let searchStringArray = searchString.componentsSeparatedByString(" ")
+        for (index,element) in searchStringArray.enumerate() {
+            if index != 0 {
+                result += "+"
+            }
+            result += element
+        }
+        
+        return result
+    }
+    
+    // MARK: - Search bar delegate
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if let searchText = searchBar.text {
+            getArticles(searchText)
+        }
+    }
+    
+    
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -28,7 +58,6 @@ class TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrayOfArticles.count
     }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ArticleCell
@@ -48,8 +77,8 @@ class TableViewController: UITableViewController {
     }
 
     // MARK: - Getting data from URL
-    func getArticles() {
-        let request = NSURLRequest(URL: NSURL(string: beginOfArticlesURL+endOfArticlesURL)!)
+    func getArticles(searchString: String) {
+        let request = NSURLRequest(URL: NSURL(string: beginOfArticlesURL+stringForSearch(searchString)+endOfArticlesURL)!)
         let urlSession = NSURLSession.sharedSession()
         let task = urlSession.dataTaskWithRequest(request) { (data, response, error) in
             if let error = error {
