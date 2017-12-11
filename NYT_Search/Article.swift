@@ -2,7 +2,7 @@
 //  Article.swift
 //  NYT_Search
 //
-//  Created by Serge Sukhanov on 09.07.16.
+//  Created by Serge Sukhanov on 09.07.17.
 //  Copyright © 2016 Serge Sukhanov. All rights reserved.
 //
 
